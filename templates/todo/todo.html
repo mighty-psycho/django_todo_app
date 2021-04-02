@@ -1,0 +1,73 @@
+{% extends 'todo/base.html' %}
+{% load static %}
+{% block title %}
+    Task
+{% endblock %}
+
+{% block content %}
+  <div class="tm-page-container mx-auto">
+              <header class="tm-header text-center">
+            <h1 class="tm-title text-uppercase">Tasks</h1>
+                 {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success" role="alert">
+                              <h6>{{ message }}</h6>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+        </header>
+    <section class="tm-section">
+      <nav class="tm-nav">
+        <ul>
+            <li>
+              <a href="{% url 'todo:logout' %}"><span class="tm-nav-deco"></span>Logout</a>
+             </li>
+            <li>
+              <a href="{% url 'todo:update_password' %}"><span class="tm-nav-deco"></span>Password</a>
+             </li>
+        </ul>
+      </nav>
+      <div class="tm-content-container">
+        <figure class="mb-0">
+          <img src="{% static 'img/img-1.jpg' %}" alt="Image" class="img-fluid tm-img" />
+        </figure>
+        <div class="tm-content">
+        <div class="form-group">
+            <form method="POST">
+                {% csrf_token %}
+           <input type="text" id="contact_name" name="todo"
+                  class="form-control rounded-0 border-top-0 border-right-0 border-left-0"
+                   placeholder="" required />
+            </div>
+            <div class="form-group text-right">
+                  <button type="submit" class="btn btn-dark rounded-0">
+                                Add Task
+                  </button>
+           </div>
+        </form>
+        </div>
+      <div class="content">
+            {% for todo in todo_list %}
+                <ol class="list-group list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="col-sm-10">
+                        <form method="POST" action="{% url 'todo:update_todo' todo.id %}">
+                            {% csrf_token %}
+                          <input  name="update_todo" style="font-weight: bold" class="form-control-plaintext" type="text" value="{{ todo.todo.capitalize }}"
+                          required>
+                          <small><strong>Added:</strong> {{ todo.date_added }}</small>
+                        </div>
+                      <button title="Update" class="btn btn-outline-info btn-sm"><i class="bi bi-arrow-repeat"></i></button>
+                         </form>
+                   <form method="POST" action="{% url 'todo:delete_todo' todo.id %}">
+                       {% csrf_token %}
+                       <button title="Delete" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
+                   </form>
+                  </li>
+                </ol>
+            {% endfor %}
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock %}
