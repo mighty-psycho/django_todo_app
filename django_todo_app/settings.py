@@ -1,10 +1,14 @@
 import os
 from pathlib import Path
 import smtplib
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'xl$3y%@9)!(i#@2_wom7=#1u-#b&qbxlh1rvx3pzdgs048t9af'
+SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = False
 
@@ -59,10 +63,10 @@ WSGI_APPLICATION = 'django_todo_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_todo_app',
-        'USER': 'radomir',
-        'PASSWORD': 'biljana4',
-        'HOST': 'database-2.cwrui6rhxt84.us-east-2.rds.amazonaws.com',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
         'PORT': 5432,
     }
 }
@@ -77,10 +81,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 
 ]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -105,16 +105,16 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'mujovicbato@gmail.com'
-EMAIL_HOST_PASSWORD = 'biljana4$'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
 
 
 #AWS Bucket settings
-AWS_ACCESS_KEY_ID = 'AKIA3BILVY3VNVF6D4ZW'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'django-todo-app'
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 AWS_S3_FILE_OVERWRITE = False
