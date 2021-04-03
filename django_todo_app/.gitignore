@@ -1,5 +1,5 @@
 .env
-venv
+venv/
 .idea
 .iml
 pip-log.txt
