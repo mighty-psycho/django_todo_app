@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'xl$3y%@9)!(i#@2_wom7=#1u-#b&qbxlh1rvx3pzdgs048t9af'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['floating-temple-90187.herokuapp.com', '127.0.0.1']
 
