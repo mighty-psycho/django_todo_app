@@ -1,4 +1,5 @@
 __pycache__
 pip-log.txt
 pip-delete-this-directory.txt
-.env
+django_todo_app/.env
+venv
