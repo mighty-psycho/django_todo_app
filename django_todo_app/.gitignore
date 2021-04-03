@@ -1,1 +1,7 @@
 .env
+venv
+.idea
+.iml
+pip-log.txt
+pip-delete-this-directory.txt
+__pycache__/
